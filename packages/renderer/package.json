@@ -1,0 +1,11 @@
+{
+	"name": "@pygmygames/renderer",
+	"type": "module",
+	"main": "dist/pygmygames-renderer.cjs.js",
+	"module": "dist/pygmygames-renderer.esm.js",
+	"types": "dist/pygmygames-renderer.cjs.d.ts",
+	"scripts": {},
+	"dependencies": {
+		"pixi.js": "^6.0.4"
+	}
+}

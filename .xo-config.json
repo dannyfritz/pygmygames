@@ -1,0 +1,6 @@
+{
+  "extends": "xo-react",
+  "ignores": [
+    "**/vite-env.d.ts"
+  ]
+}

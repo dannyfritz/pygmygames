@@ -1,0 +1,24 @@
+{
+	"name": "@pygmygames/react-client",
+	"version": "0.0.0",
+	"scripts": {
+		"dev": "vite",
+		"build": "tsc --noEmit && vite build",
+		"lint": "xo",
+		"serve": "vite preview",
+		"test": "npm run lint && ava"
+	},
+	"dependencies": {
+		"react": "^17.0.0",
+		"react-dom": "^17.0.0",
+		"@pygmygames/engine": "*"
+	},
+	"devDependencies": {
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
+		"@vitejs/plugin-react-refresh": "^1.3.1",
+		"typescript": "^4.1.2",
+		"vite": "^2.3.5",
+		"vite-react-jsx": "^1.1.1"
+	}
+}
