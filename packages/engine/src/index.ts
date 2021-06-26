@@ -1,6 +1,6 @@
-import * as Ecs from './ecs';
+import * as Ecs from '../../ecs/src/ecs';
 
-console.log("ENGINE???");
+console.log('ENGINE???');
 
 export interface State {
 	ecs: Ecs.State;
@@ -8,7 +8,7 @@ export interface State {
 
 export const createState = (): State => {
 	return {
-		ecs: Ecs.create([])
+		ecs: Ecs.create()
 	};
 };
 
@@ -17,8 +17,8 @@ export const tick = (state: State, _dt: number): State => {
 };
 
 export const render = (state: State): void => {
-	// for (const [entity, drawable] of Ecs.query(state.ecs, [Ecs.Entity, Renderer.Drawable])) {
+	for (const [entity, drawable] of Ecs.query(state.ecs, [Ecs.Entity])) {
 	// 	console.log(drawable);
-	// 	// renderer.pixiRenderer.render();
-	// }
+	// 	renderer.pixiRenderer.render();
+	}
 };

@@ -1,5 +1,8 @@
 {
 	"compilerOptions": {
-		"isolatedModules": true
+		"isolatedModules": true,
+		"target": "esnext",
+    "module": "commonjs",
+		"moduleResolution": "Node",
 	}
 }

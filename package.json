@@ -1,29 +1,25 @@
 {
-	"name": "@pygmygames",
+	"name": "pygmygames",
 	"private": true,
 	"workspaces": [
 		"packages/*",
 		"react-client"
 	],
 	"devDependencies": {
-		"@babel/core": "^7.14.6",
-		"@babel/preset-env": "^7.14.5",
+		"@babel/preset-env": "^7.14.7",
 		"@babel/preset-typescript": "^7.14.5",
-		"@preconstruct/cli": "^2.1.0",
-		"eslint-config-xo": "^0.36.0",
+		"@types/jest": "^26.0.23",
 		"eslint-config-xo-react": "^0.25.0",
-		"eslint-plugin-react": "^7.24.0",
-		"eslint-plugin-react-hooks": "^4.2.0",
-		"typescript": "^4.1.2",
-		"xo": "^0.40.2"
+		"eslint-plugin-jest": "^24.3.6",
+		"jest": "^27.0.5",
+		"typescript": "^4.3.4",
+		"xo": "^0.39.0"
 	},
 	"scripts": {
-		"postinstall": "preconstruct dev",
-		"start": "npm run dev -w react-client"
-	},
-	"preconstruct": {
-		"packages": [
-			"packages/*"
-		]
+		"lint": "npm run lint:xo",
+		"lint:xo": "xo",
+		"start": "npm run dev -w react-client",
+		"test": "npm run lint && npm run test:jest",
+		"test:jest": "jest"
 	}
 }
