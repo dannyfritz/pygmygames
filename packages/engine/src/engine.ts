@@ -17,8 +17,8 @@ export const tick = (state: State, _dt: number): State => {
 };
 
 export const render = (state: State): void => {
-	for (const [entity, drawable] of Ecs.query(state.ecs, [Ecs.Entity])) {
+	// for (const [_entity, _drawable] of Ecs.query(state.ecs, [Ecs.Entity])) {
 	// 	console.log(drawable);
 	// 	renderer.pixiRenderer.render();
-	}
+	// }
 };

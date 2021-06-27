@@ -1,19 +1,19 @@
-import {describe, expect, test} from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 
-import {defineStruct} from './struct';
+import { defineStruct } from './struct';
 
 describe('struct', () => {
 	describe('{ x: "f64" }', () => {
-		const schema = {x: 'f64'} as const;
+		const schema = { x: 'f64' } as const;
 
-		test('ArrayBuffer of size 7 bytes is not large enough', () => {
+		test('ArrayBuffer is not large enough', () => {
 			const createStruct = defineStruct(schema);
 			const data = new DataView(new ArrayBuffer(3));
 
 			expect(() => createStruct(data)).toThrow();
 		});
 
-		test('can set and get "x"', () => {
+		test('can set and get', () => {
 			const createStruct = defineStruct(schema);
 			const data = new DataView(new ArrayBuffer(8));
 			const struct = createStruct(data);
@@ -37,13 +37,7 @@ describe('struct', () => {
 			expect(data1.getFloat64(0)).toBe(0);
 			expect(struct2.x).toBe(0);
 			expect(data2.getFloat64(0)).toBe(0);
-
 			struct1.x = 10.2;
-			expect(struct1.x).toBe(10.2);
-			expect(data1.getFloat64(0)).toBe(10.2);
-			expect(struct2.x).toBe(0);
-			expect(data2.getFloat64(0)).toBe(0);
-
 			struct2.x = 12;
 			expect(struct1.x).toBe(10.2);
 			expect(data1.getFloat64(0)).toBe(10.2);
@@ -81,16 +75,16 @@ describe('struct', () => {
 	});
 
 	describe('{ hp: "u32", pos: { x: "f64", y: "f64" } }', () => {
-		const schema = {hp: 'u32', pos: {x: 'f64', y: 'f64'}} as const;
+		const schema = { hp: 'u32', pos: { x: 'f64', y: 'f64' } } as const;
 
-		test('ArrayBuffer of size 19 bytes is not large enough', () => {
+		test('ArrayBuffer is not large enough', () => {
 			const createStruct = defineStruct(schema);
 			const data = new DataView(new ArrayBuffer(19));
 
 			expect(() => createStruct(data)).toThrow();
 		});
 
-		test('can set and get "hp", "pos.x", and "pos.y"', () => {
+		test('can set and get', () => {
 			const createStruct = defineStruct(schema);
 			const data = new DataView(new ArrayBuffer(20));
 			const struct = createStruct(data);
@@ -134,16 +128,16 @@ describe('struct', () => {
 	});
 
 	describe('{ ids: ["u32", 3] }', () => {
-		const schema = {ids: ['u32', 3]} as const;
+		const schema = { ids: ['u32', 3] } as const;
 
-		test('ArrayBuffer of size 19 bytes is not large enough', () => {
+		test('ArrayBuffer is not large enough', () => {
 			const createStruct = defineStruct(schema);
 			const data = new DataView(new ArrayBuffer(11));
 
 			expect(() => createStruct(data)).toThrow();
 		});
 
-		test('can set and get "ids[0]", ids[1], and "ids[2]"', () => {
+		test('can set and get', () => {
 			const createStruct = defineStruct(schema);
 			const data = new DataView(new ArrayBuffer(12));
 			const struct = createStruct(data);

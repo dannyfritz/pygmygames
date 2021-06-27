@@ -1,0 +1,18 @@
+{
+	"name": "@pygmygames/struct",
+	"type": "module",
+	"main": "dist/pygmygames-struct.cjs.js",
+	"module": "dist/pygmygames-struct.esm.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"build": "rollpkg build",
+		"watch": "rollpkg watch",
+		"prepublishOnly": "npm run lint && npm run test && npm run build"
+	},
+	"devDependencies": {},
+	"dependencies": {}
+}

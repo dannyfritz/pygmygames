@@ -2,5 +2,8 @@
 	"name": "@pygmygames/ecs",
 	"type": "module",
 	"scripts": {},
+	"dependencies": {
+		"@pygmygames/struct": "*"
+	},
 	"devDependencies": {}
 }

@@ -1,5 +1,5 @@
-import type {Schema, Struct} from './struct';
-import {defineStruct} from './struct';
+import type {Schema, Struct} from '@pygmygames/struct';
+import {defineStruct} from '@pygmygames/struct';
 
 type EntityId = number;
 

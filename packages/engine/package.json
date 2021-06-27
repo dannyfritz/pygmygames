@@ -1,9 +1,6 @@
 {
 	"name": "@pygmygames/engine",
 	"type": "module",
-	"main": "dist/pygmygames-engine.cjs.js",
-	"module": "dist/pygmygames-engine.esm.js",
-	"types": "dist/pygymygames-engine.cjs.d.ts",
 	"scripts": {},
 	"dependencies": {
 		"@pygmygames/ecs": "*",

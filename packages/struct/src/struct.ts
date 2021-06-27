@@ -6,7 +6,7 @@ type SchemaType = Primitive | Slice;
 
 export type Schema = Readonly<{[prop: string]: Schema | SchemaType}>;
 
-type Layout = {[prop: string]: [type: Primitive, offset: bytes] | Layout};
+export type Layout = {[prop: string]: [type: Primitive, offset: bytes] | Layout};
 
 const LAYOUT_DATA = Symbol('__LAYOUT_DATA');
 
@@ -36,7 +36,6 @@ function _getPrimitiveSize(primitive: Primitive): bytes {
 }
 
 export function getSize(schema: Schema): bytes {
-	// eslint-disable-next-line unicorn/no-array-reduce
 	return Object.values(schema).reduce((sum, type) => {
 		if (typeof type === 'string') {
 			return sum + _getPrimitiveSize(type);
@@ -55,7 +54,7 @@ function _getLayout(
 	schema: Schema,
 	initialOffset = 0,
 ): [prelayout: Layout, size: number] {
-	const layout = {};
+	const layout: Layout = {};
 	let size = 0;
 	for (const [key, type] of Object.entries(schema)) {
 		if (typeof type === 'string') {
@@ -68,7 +67,7 @@ function _getLayout(
 			const [primitive, length] = type as [Primitive, number];
 			layout[key] = {};
 			for (let i = 0; i < length; i++) {
-				layout[key][i] = [
+				(layout[key] as Layout)[i] = [
 					primitive,
 					initialOffset + size + _getPrimitiveSize(primitive) * i,
 				];
@@ -113,19 +112,19 @@ const handler: ProxyHandler<LayoutTarget> = {
 			return _newStruct(target[key] as Layout, data);
 		}
 	},
-	set(target: LayoutTarget, key: string, newValue: any) {
+	set(target: LayoutTarget, key: string, newValue: number) {
 		const data = target[LAYOUT_DATA];
 		const value = target[key];
 		if (Array.isArray(value)) {
 			const [primitive, offset] = value;
 			switch (primitive) {
 				case 'u32': {
-					data.setUint32(offset, newValue as number);
+					data.setUint32(offset, newValue);
 					return true;
 				}
 
 				case 'f64': {
-					data.setFloat64(offset, newValue as number);
+					data.setFloat64(offset, newValue);
 					return true;
 				}
 
