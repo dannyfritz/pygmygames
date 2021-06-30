@@ -1,9 +1,21 @@
 {
 	"name": "@pygmygames/ecs",
+	"version": "1.0.0",
 	"type": "module",
-	"scripts": {},
+	"main": "dist/pygmygames-ecs.cjs.js",
+	"module": "dist/pygmygames-ecs.esm.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist"
+	],
+	"sideEffects": false,
+	"scripts": {
+		"build": "rollpkg build --noStats",
+		"watch": "rollpkg watch",
+		"prepublishOnly": "npm run build"
+	},
 	"dependencies": {
-		"@pygmygames/struct": "*"
+		"@pygmygames/struct": "^1.0.0"
 	},
 	"devDependencies": {}
 }

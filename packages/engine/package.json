@@ -3,7 +3,7 @@
 	"type": "module",
 	"scripts": {},
 	"dependencies": {
-		"@pygmygames/ecs": "*",
-		"@pygmygames/renderer": "*"
+		"@pygmygames/ecs": "^1.0.0",
+		"@pygmygames/renderer": "^1.0.0"
 	}
 }
