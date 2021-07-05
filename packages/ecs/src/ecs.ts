@@ -79,9 +79,6 @@ function getStructForEntity<S extends Schema>(world: World, entityId: EntityId, 
 	if (!componentStorage) {
 		return;
 	}
-	if (!componentStorage.slots.includes(entityId)) {
-		return;
-	}
 	return getEntityStructFromComponentStorage(componentStorage, entityId)
 }
 
@@ -112,7 +109,7 @@ export function getEntity(world: World, entityId: EntityId): EntityMap {
 
 export function addComponent<S extends Schema>(world: World, entityId: EntityId, component: Component<S>): Struct<S> {
 	if (!world.storage.has(component)) {
-		const arrayBuffer = new ArrayBuffer(10000);
+		const arrayBuffer = new ArrayBuffer(1_000_000);
 		const componentStorage = createComponentStorage(component, new DataView(arrayBuffer, 0));
 		world.storage.set(component, componentStorage);
 	}
@@ -153,6 +150,6 @@ export function* query<WithCs extends readonly Component<any>[]>(
 			}
 			structs.push(struct);
 		}
-		yield structs as any;
+		yield structs as unknown as {[P in keyof WithCs]: WithCs[P] extends Component<infer S> ? S : never}
 	}
 }

@@ -1,0 +1,11 @@
+{
+	"name": "@pygmygames/ecs-bench",
+	"private": true,
+	"scripts": {
+		"start": "node ./bench.mjs"
+	},
+	"dependencies": {
+		"@pygmygames/ecs": "^1.0.0"
+	},
+	"devDependencies": {}
+}

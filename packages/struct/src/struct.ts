@@ -1,4 +1,8 @@
-type Primitive = 'u32' | 'f64';
+type Primitive =
+	| 'f32'
+	| 'f64'
+	| 'u32'
+	;
 
 type Slice = readonly [primitive: Primitive, length: number];
 
@@ -26,6 +30,8 @@ type bytes = number;
 
 function _getPrimitiveSize(primitive: Primitive): bytes {
 	switch (primitive) {
+		case 'f32':
+			return 4;
 		case 'f64':
 			return 8;
 		case 'u32':
@@ -99,10 +105,12 @@ const handler: ProxyHandler<LayoutTarget> = {
 		if (Array.isArray(value)) {
 			const [primitive, offset] = value;
 			switch (primitive) {
-				case 'u32':
-					return data.getUint32(offset);
+				case 'f32':
+					return data.getFloat32(offset);
 				case 'f64':
 					return data.getFloat64(offset);
+				case 'u32':
+					return data.getUint32(offset);
 				default:
 					throw new Error(
 						`unknown primitive: ${primitive as unknown as string}`,
@@ -118,16 +126,18 @@ const handler: ProxyHandler<LayoutTarget> = {
 		if (Array.isArray(value)) {
 			const [primitive, offset] = value;
 			switch (primitive) {
-				case 'u32': {
-					data.setUint32(offset, newValue);
+				case 'f32': {
+					data.setFloat32(offset, newValue);
 					return true;
 				}
-
 				case 'f64': {
 					data.setFloat64(offset, newValue);
 					return true;
 				}
-
+				case 'u32': {
+					data.setUint32(offset, newValue);
+					return true;
+				}
 				default:
 					throw new Error(
 						`unknown primitive: ${primitive as unknown as string}`,
@@ -139,10 +149,15 @@ const handler: ProxyHandler<LayoutTarget> = {
 	},
 };
 
+const newStructCache: Map<Layout, Map<DataView, Struct<any>>> = new Map();
+
 function _newStruct<S extends Schema>(
 	layout: Layout,
 	data: DataView,
 ): Struct<S> {
+	if (newStructCache.get(layout)?.has(data)) {
+		return newStructCache.get(layout)?.get(data) as Struct<S>;
+	}
 	return new Proxy(
 		{...layout, [LAYOUT_DATA]: data},
 		handler,
@@ -158,7 +173,7 @@ export function defineStruct<S extends Schema>(
 	return function (data: DataView): Struct<S> {
 		if (data.byteLength < requiredSize) {
 			throw new Error(
-				'DataView provided is not large enough to contains Struct',
+				`DataView provided is not large enough to contain Struct\nDataView: ${data.byteLength} bytes\nSchema: ${requiredSize} bytes`,
 			);
 		}
 

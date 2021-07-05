@@ -1,7 +1,6 @@
 {
 	"name": "@pygmygames/ecs",
 	"version": "1.0.0",
-	"type": "module",
 	"main": "dist/pygmygames-ecs.cjs.js",
 	"module": "dist/pygmygames-ecs.esm.js",
 	"types": "dist/index.d.ts",

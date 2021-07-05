@@ -1,7 +1,6 @@
 {
 	"name": "@pygmygames/struct",
 	"version": "1.0.0",
-	"type": "module",
 	"main": "dist/pygmygames-struct.cjs.js",
 	"module": "dist/pygmygames-struct.esm.js",
 	"types": "dist/index.d.ts",
